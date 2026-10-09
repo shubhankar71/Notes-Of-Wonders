@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-slate-950 font-mono text-slate-100 antialiased">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NOW</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="/script.css">
+</head>
+<body class="h-full flex flex-col bg-slate-950 text-slate-100 font-mono rounded-none">
+
+  <!-- ==================== AUTH VIEW ==================== -->
+  <div id="authView" class="min-h-screen flex flex-col items-center justify-center p-4 bg-slate-950">
+    
+    <!-- Prominent Centered Page Header -->
+    <div class="text-center space-y-2 mb-8 max-w-lg">
+      <div class="inline-flex items-center gap-2.5 text-orange-500 font-extrabold tracking-widest text-2xl uppercase">
+        <span class="w-4 h-4 bg-orange-500 inline-block"></span>
+        <span>Notes of Wonders</span>
+      </div>
+      <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-100 uppercase">Secured Note Infrastructure</h1>
+      <p class="text-xs text-slate-400 font-mono uppercase tracking-wider"></p>
+    </div>
+
+    <!-- Centered Boxed Auth Card Container -->
+    <div class="max-w-md w-full bg-slate-900 border border-slate-800 p-6 space-y-6 rounded-none shadow-2xl">
+
+      <!-- Auth Error / Success Banner -->
+      <div id="authErrorMsg" class="hidden p-3 bg-rose-950/80 border border-rose-800 text-rose-200 text-xs font-mono uppercase tracking-wide"></div>
+      <div id="authSuccessMsg" class="hidden p-3 bg-emerald-950/80 border border-emerald-800 text-emerald-200 text-xs font-mono uppercase tracking-wide"></div>
+
+      <!-- Auth Navigation Tabs Switcher -->
+      <div id="authTabsContainer" class="flex border-b border-slate-800 text-xs uppercase font-bold tracking-wider">
+        <button id="loginTabBtn" class="w-1/2 py-3 text-center text-orange-500 border-b-2 border-orange-500 transition-colors">Sign In</button>
+        <button id="registerTabBtn" class="w-1/2 py-3 text-center text-slate-500 border-b-2 border-transparent hover:text-slate-300 transition-colors">Create Account</button>
+      </div>
+
+      <!-- Login Form -->
+      <form id="loginForm" class="space-y-4">
+        <div>
+          <label class="block text-xs uppercase text-slate-400 tracking-wider mb-1">Email Address</label>
+          <input id="loginEmail" type="email" required placeholder="user@mail.com" class="w-full px-3.5 py-2.5 bg-slate-950 border border-slate-800 text-slate-100 text-xs font-mono focus:border-orange-500 focus:outline-none rounded-none">
+        </div>
+        <div>
+          <div class="flex justify-between items-center mb-1">
+            <label class="block text-xs uppercase text-slate-400 tracking-wider">Password</label>
+            <button type="button" id="forgotPasswordLink" class="text-xs text-orange-400 hover:text-orange-300 underline uppercase tracking-wider">Forgot password?</button>
+          </div>
+          <input id="loginPassword" type="password" required placeholder="••••••••" class="w-full px-3.5 py-2.5 bg-slate-950 border border-slate-800 text-slate-100 text-xs font-mono focus:border-orange-500 focus:outline-none rounded-none">
+        </div>
+        <button type="submit" class="w-full py-3 bg-orange-600 hover:bg-orange-500 text-slate-950 font-bold uppercase text-xs tracking-wider transition-colors rounded-none">Sign In</button>
+      </form>
+
+      <!-- Register Form -->
+      <form id="registerForm" class="space-y-4 hidden">
+        <div>
+          <label class="block text-xs uppercase text-slate-400 tracking-wider mb-1">Email Address</label>
+          <input id="registerEmail" type="email" required placeholder="user@mail.com" class="w-full px-3.5 py-2.5 bg-slate-950 border border-slate-800 text-slate-100 text-xs font-mono focus:border-orange-500 focus:outline-none rounded-none">
+        </div>
+        <div>
+          <label class="block text-xs uppercase text-slate-400 tracking-wider mb-1">Username</label>
+          <input id="registerUsername" type="text" required placeholder="user_name" class="w-full px-3.5 py-2.5 bg-slate-950 border border-slate-800 text-slate-100 text-xs font-mono focus:border-orange-500 focus:outline-none rounded-none">
+        </div>
+        <div>
+          <label class="block text-xs uppercase text-slate-400 tracking-wider mb-1">Password</label>
+          <input id="registerPassword" type="password" required placeholder="Minimum 6 characters" class="w-full px-3.5 py-2.5 bg-slate-950 border border-slate-800 text-slate-100 text-xs font-mono focus:border-orange-500 focus:outline-none rounded-none">
+        </div>
+        <button type="submit" class="w-full py-3 bg-orange-600 hover:bg-orange-500 text-slate-950 font-bold uppercase text-xs tracking-wider transition-colors rounded-none">Create Account</button>
+      </form>
+
+      <!-- Recovery / Forgot Password Container -->
+      <div id="forgotPasswordContainer" class="space-y-4 hidden">
+        <div class="border-b border-slate-800 pb-2">
+          <h3 class="text-xs font-bold uppercase tracking-wider text-orange-400">Account Password Recovery</h3>
+          <p class="text-[11px] text-slate-400 mt-0.5">Request a 6-digit OTP code to reset password</p>
+        </div>
+
+        <!-- Step 1: Request OTP Form -->
+        <form id="requestOtpForm" class="space-y-4">
+          <div>
+            <label class="block text-xs uppercase text-slate-400 tracking-wider mb-1">Account Email</label>
+            <input id="forgotEmail" type="email" required placeholder="user@mail.com" class="w-full px-3.5 py-2.5 bg-slate-950 border border-slate-800 text-slate-100 text-xs font-mono focus:border-orange-500 focus:outline-none rounded-none">
+          </div>
+          <button type="submit" id="requestOtpSubmitBtn" class="w-full py-3 bg-slate-800 border border-slate-700 text-slate-100 font-bold uppercase text-xs tracking-wider hover:bg-slate-700 transition-colors rounded-none">Request Reset OTP</button>
+        </form>
+
+        <!-- Step 2: Reset Password Form -->
+        <form id="resetPasswordForm" class="space-y-4 hidden">
+          <div>
+            <label class="block text-xs uppercase text-slate-400 tracking-wider mb-1">6-Digit OTP Code</label>
+            <input id="resetOtp" type="text" required maxlength="6" placeholder="123456" class="w-full px-3.5 py-2.5 bg-slate-950 border border-slate-800 text-slate-100 text-xs font-mono tracking-widest focus:border-orange-500 focus:outline-none rounded-none">
+          </div>
+          <div>
+            <label class="block text-xs uppercase text-slate-400 tracking-wider mb-1">New Password</label>
+            <input id="resetNewPassword" type="password" required placeholder="••••••••" class="w-full px-3.5 py-2.5 bg-slate-950 border border-slate-800 text-slate-100 text-xs font-mono focus:border-orange-500 focus:outline-none rounded-none">
+          </div>
+          <button type="submit" id="resetPasswordSubmitBtn" class="w-full py-3 bg-orange-600 hover:bg-orange-500 text-slate-950 font-bold uppercase text-xs tracking-wider transition-colors rounded-none">Reset Password</button>
+        </form>
+
+        <div class="pt-2 text-center border-t border-slate-800">
+          <button type="button" id="backToSignInBtn" class="text-xs text-slate-400 hover:text-slate-200 uppercase tracking-wider underline">← Back to Sign In</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ==================== DASHBOARD VIEW ==================== -->
+  <div id="dashboardView" class="hidden min-h-screen flex flex-col bg-slate-950">
+    
+    <!-- Top Navigation Header -->
+    <header class="bg-slate-900 border-b border-slate-800 sticky top-0 z-30">
+      <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+        
+        <!-- Logo & System Indicator -->
+        <div class="flex items-center space-x-3 text-xs uppercase font-bold tracking-widest">
+          <span class="w-2.5 h-2.5 bg-orange-500 inline-block animate-pulse"></span>
+          <span class="text-orange-500">N O W</span>
+        </div>
+
+        <!-- User Info & Logout -->
+        <div class="flex items-center space-x-4 text-xs">
+          <div class="hidden sm:flex items-center space-x-2 border border-slate-800 px-3 py-1 bg-slate-950">
+            <span id="userAvatar" class="text-orange-500 font-bold">[U]</span>
+            <span id="userEmailDisplay" class="text-slate-300">user@domain.com</span>
+          </div>
+          <button id="logoutBtn" class="px-3 py-1 bg-slate-800 border border-slate-700 text-slate-300 hover:text-slate-100 hover:bg-slate-700 uppercase tracking-wider transition-colors rounded-none">
+            Logout
+          </button>
+        </div>
+
+      </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 py-6 space-y-6">
+      
+      <!-- Toolbar Controls -->
+      <div class="bg-slate-900 border border-slate-800 p-4 flex flex-col md:flex-row items-center justify-between gap-4">
+        
+        <!-- Search Field -->
+        <div class="relative w-full md:w-80">
+          <input id="searchInput" type="text" placeholder="FILTER BY KEYWORD..." class="w-full pl-3 pr-8 py-2 bg-slate-950 border border-slate-800 text-xs text-slate-100 font-mono focus:border-orange-500 focus:outline-none rounded-none uppercase">
+          <button id="clearSearchBtn" class="hidden absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-300 text-xs">✕</button>
+        </div>
+
+        <!-- Filter Dropdowns & Actions -->
+        <div class="flex items-center gap-3 w-full md:w-auto justify-between md:justify-end text-xs">
+          
+          <select id="tagFilterSelect" class="px-3 py-2 bg-slate-950 border border-slate-800 text-slate-300 text-xs font-mono uppercase focus:border-orange-500 focus:outline-none rounded-none cursor-pointer">
+            <option value="">ALL TAGS</option>
+          </select>
+
+          <button id="pinnedFilterBtn" class="px-3 py-2 bg-slate-950 border border-slate-800 text-slate-400 uppercase tracking-wider hover:text-orange-400 transition-colors rounded-none">
+            PINNED ONLY
+          </button>
+
+          <button id="createNoteModalBtn" class="px-4 py-2 bg-orange-600 hover:bg-orange-500 text-slate-950 font-bold uppercase tracking-wider transition-colors rounded-none">
+            NEW NOTE
+          </button>
+
+        </div>
+      </div>
+
+      <!-- Metrics Bar -->
+      <div class="flex items-center justify-between text-xs text-slate-400 uppercase tracking-widest px-1">
+        <div>
+          TOTAL: <span id="totalNotesCount" class="text-orange-500 font-bold">0</span> |
+          PINNED: <span id="pinnedNotesCount" class="text-orange-400 font-bold">0</span>
+        </div>
+      </div>
+
+      <!-- Notes Grid -->
+      <div id="notesGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+
+      <!-- Empty State -->
+      <div id="emptyState" class="hidden py-16 text-center bg-slate-900 border border-slate-800 border-dashed">
+        <p class="text-xs uppercase tracking-widest text-slate-400">NO NOTES RECORDED IN SYSTEM DATABASE</p>
+        <p class="text-[11px] text-slate-600 mt-1 uppercase">Click <b> NEW NOTE </b>  above to instantiate a new record.</p>
+      </div>
+
+    </main>
+  </div>
+
+
+  <!-- ==================== CREATE / EDIT NOTE MODAL ==================== -->
+  <div id="noteModal" class="hidden fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-none flex items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-800 max-w-lg w-full p-6 space-y-4 rounded-none">
+      
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+        <h3 id="modalTitle" class="text-xs font-bold uppercase tracking-wider text-orange-400">CREATE NOTE RECORD</h3>
+        <button id="closeModalBtn" class="text-slate-500 hover:text-slate-300 text-sm">✕</button>
+      </div>
+
+      <form id="noteForm" class="space-y-4 text-xs">
+        <input type="hidden" id="noteIdInput">
+
+        <div>
+          <label class="block uppercase tracking-wider text-slate-400 mb-1">RECORD TITLE</label>
+          <input id="noteTitleInput" type="text" required placeholder="Enter record title..." class="w-full px-3 py-2 bg-slate-950 border border-slate-800 text-slate-100 font-mono focus:border-orange-500 focus:outline-none rounded-none">
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block uppercase tracking-wider text-slate-400 mb-1">TAGS (COMMA SEPARATED)</label>
+            <input id="noteTagsInput" type="text" placeholder="work, core, system" class="w-full px-3 py-2 bg-slate-950 border border-slate-800 text-slate-100 font-mono focus:border-orange-500 focus:outline-none rounded-none">
+          </div>
+          <div class="flex items-end pb-2">
+            <label class="inline-flex items-center gap-2 cursor-pointer uppercase tracking-wider text-slate-300">
+              <input id="notePinnedInput" type="checkbox" class="w-4 h-4 rounded-none bg-slate-950 border-slate-800 text-orange-500">
+              <span>PIN TO TOP</span>
+            </label>
+          </div>
+        </div>
+
+        <div>
+          <label class="block uppercase tracking-wider text-slate-400 mb-1">RECORD CONTENT</label>
+          <textarea id="noteContentInput" required rows="6" placeholder="Enter record content details..." class="w-full px-3 py-2 bg-slate-950 border border-slate-800 text-slate-100 font-mono focus:border-orange-500 focus:outline-none resize-none rounded-none"></textarea>
+        </div>
+
+        <div class="pt-2 flex items-center justify-end gap-3 border-t border-slate-800">
+          <button type="button" id="cancelModalBtn" class="px-4 py-2 border border-slate-800 text-slate-400 hover:text-slate-200 uppercase font-bold tracking-wider rounded-none">CANCEL</button>
+          <button type="submit" id="saveNoteSubmitBtn" class="px-5 py-2 bg-orange-600 hover:bg-orange-500 text-slate-950 uppercase font-bold tracking-wider rounded-none transition-colors">SAVE RECORD</button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+
+
+  <!-- ==================== DELETE CONFIRMATION MODAL ==================== -->
+  <div id="deleteModal" class="hidden fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-none flex items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-800 max-w-sm w-full p-6 space-y-4 text-center rounded-none">
+      <h3 class="text-xs font-bold uppercase tracking-wider text-rose-400">CONFIRM DELETION</h3>
+      <p class="text-xs text-slate-400 leading-relaxed">Permanently purge this note record from the database?</p>
+
+      <div class="pt-2 flex items-center justify-center gap-3 border-t border-slate-800">
+        <button id="cancelDeleteBtn" class="w-full py-2 bg-slate-950 border border-slate-800 text-slate-300 text-xs font-bold uppercase tracking-wider hover:bg-slate-800 rounded-none">CANCEL</button>
+        <button id="confirmDeleteBtn" class="w-full py-2 bg-rose-950 border border-rose-800 text-rose-200 text-xs font-bold uppercase tracking-wider hover:bg-rose-900 rounded-none">PURGE</button>
+      </div>
+      <button id="closeDeleteModalBtn" class="hidden"></button>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div id="toastContainer" class="fixed bottom-4 right-4 z-50 flex flex-col gap-2 max-w-sm pointer-events-none"></div>
+
+  <!-- App Script -->
+  <script src="/script.js"></script>
+</body>
+</html>

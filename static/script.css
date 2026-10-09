@@ -1,0 +1,116 @@
+/* Warm orange and white theme for VaultNotes */
+:root {
+  color-scheme: light;
+  --orange: #f97316;
+  --orange-dark: #ea580c;
+  --orange-pale: #fff7ed;
+  --ink: #334155;
+  --muted: #64748b;
+  --line: #e2e8f0;
+  --surface: #ffffff;
+  --page: #fffaf5;
+}
+
+* { box-sizing: border-box; }
+
+html, body { min-height: 100%; }
+body {
+  margin: 0;
+  background: var(--page) !important;
+  color: var(--ink) !important;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+  font-size: 15px;
+}
+
+/* Replace the dark utility surfaces with clean white cards and warm page tones. */
+[class~="bg-slate-950"] { background-color: var(--page) !important; }
+[class~="bg-slate-900"] { background-color: var(--surface) !important; }
+[class~="bg-slate-800"] { background-color: #fff1e6 !important; }
+[class~="bg-slate-700"] { background-color: #ffedd5 !important; }
+[class~="bg-orange-600"] { background-color: var(--orange-dark) !important; }
+[class~="bg-orange-600"]:hover, [class~="hover:bg-orange-500"]:hover { background-color: var(--orange) !important; }
+
+[class~="text-slate-100"], [class~="text-slate-200"], [class~="text-slate-300"] { color: #334155 !important; }
+[class~="text-slate-400"], [class~="text-slate-500"], [class~="text-slate-600"] { color: var(--muted) !important; }
+[class~="text-orange-500"], [class~="text-orange-400"], [class~="text-orange-300"] { color: var(--orange-dark) !important; }
+[class~="text-rose-200"], [class~="text-rose-400"] { color: #be123c !important; }
+[class~="text-emerald-200"] { color: #047857 !important; }
+
+[class~="border-slate-800"], [class~="border-slate-700"] { border-color: var(--line) !important; }
+[class~="border-orange-500"] { border-color: var(--orange) !important; }
+[class~="border-transparent"] { border-color: transparent !important; }
+
+input, textarea, select {
+  color: #1e293b !important;
+  background-color: #fff !important;
+  border: 1px solid var(--line) !important;
+  border-radius: 14px !important;
+  font: inherit !important;
+  padding: .75rem 1rem !important;
+  transition: border-color .16s ease, box-shadow .16s ease;
+}
+input::placeholder, textarea::placeholder { color: #94a3b8 !important; }
+input:focus, textarea:focus, select:focus {
+  outline: none !important;
+  border-color: var(--orange) !important;
+  box-shadow: 0 0 0 3px rgb(249 115 22 / 16%) !important;
+}
+
+button {
+  font-family: inherit !important;
+  border-radius: 12px !important;
+  transition: background-color .16s ease, color .16s ease, box-shadow .16s ease, border-color .16s ease;
+}
+button[type="submit"], #createNoteModalBtn {
+  color: white !important;
+  box-shadow: 0 5px 12px rgb(234 88 12 / 18%);
+}
+#requestOtpSubmitBtn {
+  background: var(--orange-dark) !important;
+  border-color: var(--orange-dark) !important;
+  color: #fff !important;
+  font-weight: 700;
+}
+#requestOtpSubmitBtn:hover { background: var(--orange) !important; border-color: var(--orange) !important; }
+#authSuccessMsg {
+  background: var(--orange-pale) !important;
+  border: 1px solid #fdba74 !important;
+  color: #9a3412 !important;
+  font-family: inherit !important;
+  font-size: .875rem !important;
+  font-weight: 600;
+  line-height: 1.5;
+  text-transform: none;
+}
+button:disabled { opacity: .65; cursor: wait; }
+
+#authView { background: var(--page) !important; padding: 2rem 1rem !important; }
+#authView > div:first-child { margin-bottom: 1.5rem; }
+#authView > div:first-child h1 { color: #1e293b !important; text-transform: none; letter-spacing: -.03em; }
+#authView > div:first-child p { color: var(--muted) !important; text-transform: none; letter-spacing: 0; font-size: 1rem; }
+#authView > div:first-child .inline-flex { letter-spacing: -.03em; }
+#authView > div:first-child .inline-flex span:first-child { display: none; }
+#authView > div:nth-child(2) {
+  max-width: 30rem;
+  padding: 1.5rem !important;
+  border: 1px solid #f1f5f9 !important;
+  border-radius: 22px !important;
+  box-shadow: 0 16px 45px rgb(124 45 18 / 8%) !important;
+}
+#authTabsContainer button { font-size: .95rem; text-transform: none; letter-spacing: 0; }
+
+header { background: #fff !important; border-color: var(--line) !important; }
+main > div:first-child, #emptyState, #noteModal > div, #deleteModal > div,
+#authErrorMsg, #authSuccessMsg { border-radius: 16px !important; }
+#notesGrid > div { border-radius: 16px !important; box-shadow: 0 4px 16px rgb(15 23 42 / 4%); }
+#noteModal, #deleteModal { background-color: rgb(15 23 42 / 35%) !important; }
+
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: #fff7ed; }
+::-webkit-scrollbar-thumb { background: #fdba74; border-radius: 8px; }
+::-webkit-scrollbar-thumb:hover { background: var(--orange); }
+::selection { background: #fed7aa; color: #7c2d12; }
+
+@media (max-width: 480px) {
+  #authView > div:nth-child(2) { padding: 1.15rem !important; }
+}

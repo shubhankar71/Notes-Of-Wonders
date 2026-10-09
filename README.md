@@ -1,13 +1,13 @@
-# VaultNotes — Enterprise-Lite Secure Note-Taking Application
+# Notes Of Wonders — Enterprise-Lite Secure Note-Taking Application
 
-VaultNotes is a full-stack note-taking application built with **FastAPI** and **Vanilla JavaScript** (with Tailwind CSS), organized in a clean, flat root-level module structure.
+Notes Of Wonders is a full-stack note-taking application built with **FastAPI** and **Vanilla JavaScript** (with Tailwind CSS), organized in a clean, flat root-level module structure.
 
 ---
 
 ## File Architecture
 
 ```
-notebook/
+Notes-Of-Wonders/
 ├── app.py                # Application factory, CORS middleware, router registration, & static file serving
 ├── database.py           # SQLAlchemy engine, SessionLocal, & get_db dependency
 ├── models.py             # User and Note ORM models with relational isolation
